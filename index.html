@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>2026 바디챌린지 · 멤버별 딥 플랜</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root{
+    --bg:#0c0e0b;
+    --bg2:#14171210;
+    --panel:#15181355;
+    --panel-solid:#171b16;
+    --line:#2a2f27;
+    --ink:#eef2e9;
+    --ink-dim:#9aa295;
+    --ink-faint:#6c7466;
+    --acc:#c4ff45;          /* electric lime */
+    --acc-2:#7dd3fc;        /* cool blue for medical/safety */
+    --warn:#ffb454;
+    --danger:#ff7a7a;
+    --radius:18px;
+    --font:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.62;-webkit-font-smoothing:antialiased;}
+  body{
+    background:
+      radial-gradient(900px 500px at 85% -8%, rgba(196,255,69,.10), transparent 60%),
+      radial-gradient(700px 500px at -10% 12%, rgba(125,211,252,.07), transparent 55%),
+      var(--bg);
+    min-height:100dvh;
+    padding-bottom:64px;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(12,14,11,.78);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .head-inner{max-width:760px;margin:0 auto;padding:16px 18px 0;}
+  .eyebrow{font-size:11px;letter-spacing:.22em;color:var(--acc);font-weight:700;text-transform:uppercase;}
+  .title{font-size:21px;font-weight:800;letter-spacing:-.02em;margin-top:3px;}
+  .title small{color:var(--ink-faint);font-weight:600;font-size:12px;letter-spacing:0;}
+
+  .tabs{
+    display:flex;gap:7px;overflow-x:auto;padding:13px 18px 13px;margin:0 auto;max-width:760px;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:1px;
+    padding:8px 15px;border-radius:999px;border:1px solid var(--line);
+    background:var(--panel-solid);color:var(--ink-dim);cursor:pointer;
+    font-weight:700;font-size:14px;transition:.18s;white-space:nowrap;
+  }
+  .tab .num{font-size:10px;color:var(--ink-faint);font-weight:600;letter-spacing:.05em;}
+  .tab[aria-selected="true"]{
+    background:var(--acc);color:#0c0e0b;border-color:var(--acc);
+    box-shadow:0 6px 20px -8px rgba(196,255,69,.6);
+  }
+  .tab[aria-selected="true"] .num{color:#0c0e0b;opacity:.65;}
+
+  /* ---------- content ---------- */
+  main{max-width:760px;margin:0 auto;padding:8px 18px 0;}
+  .view{animation:rise .42s cubic-bezier(.2,.7,.2,1) both;}
+  @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+
+  .hero{
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:linear-gradient(160deg,var(--panel-solid),#11140f);
+    padding:20px 20px 18px;margin-top:14px;position:relative;overflow:hidden;
+  }
+  .hero::after{content:"";position:absolute;inset:0;background:radial-gradient(400px 200px at 100% 0,rgba(196,255,69,.09),transparent 70%);pointer-events:none;}
+  .hero .name{font-size:27px;font-weight:800;letter-spacing:-.02em;}
+  .hero .meta{color:var(--ink-dim);font-size:13px;font-weight:600;margin-top:2px;}
+  .hero .oneline{margin-top:12px;font-size:14.5px;color:#dfe6d8;border-left:3px solid var(--acc);padding-left:12px;}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px;}
+  .stat{background:#0e110c;border:1px solid var(--line);border-radius:13px;padding:11px 8px;text-align:center;}
+  .stat .v{font-size:16px;font-weight:800;letter-spacing:-.02em;}
+  .stat .v small{font-size:10px;font-weight:600;color:var(--ink-faint);}
+  .stat .l{font-size:10.5px;color:var(--ink-faint);margin-top:2px;font-weight:600;}
+
+  section{margin-top:18px;}
+  .s-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .s-head .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 10px var(--acc);}
+  .s-head h2{font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--ink);}
+
+  .card{background:var(--panel-solid);border:1px solid var(--line);border-radius:var(--radius);padding:16px 17px;}
+
+  ul.goals{list-style:none;display:flex;flex-direction:column;gap:9px;}
+  ul.goals li{display:flex;gap:10px;font-size:14px;color:#e3e9dd;}
+  ul.goals li::before{content:"";flex:0 0 auto;width:16px;height:16px;margin-top:3px;border-radius:5px;border:1.5px solid var(--acc);background:rgba(196,255,69,.12);}
+
+  .revise{font-size:13.5px;color:var(--ink-dim);background:rgba(125,211,252,.05);border:1px solid rgba(125,211,252,.22);border-radius:14px;padding:14px 15px;}
+  .revise b{color:var(--acc-2);font-weight:700;}
+  .revise .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--acc-2);background:rgba(125,211,252,.13);padding:3px 9px;border-radius:999px;margin-bottom:8px;}
+
+  /* routine */
+  .day-tabs{display:flex;gap:6px;margin-bottom:12px;}
+  .day-tab{flex:1;padding:11px 6px;border-radius:13px;border:1px solid var(--line);background:#0e110c;color:var(--ink-dim);font-weight:700;cursor:pointer;transition:.16s;text-align:center;}
+  .day-tab .dl{display:block;font-size:10px;color:var(--ink-faint);font-weight:600;margin-top:1px;letter-spacing:.03em;}
+  .day-tab.on{background:var(--acc);color:#0c0e0b;border-color:var(--acc);}
+  .day-tab.on .dl{color:#0c0e0b;opacity:.7;}
+  .ex-hint{font-size:11.5px;color:var(--ink-faint);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .ex-hint::before{content:"👆";font-size:12px;}
+  .exlist{list-style:none;display:flex;flex-direction:column;}
+  .exlist li{border-bottom:1px dashed var(--line);}
+  .exlist li:last-child{border-bottom:none;}
+  .exrow-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 2px;cursor:pointer;}
+  .exrow-top .ex{font-size:14px;font-weight:600;color:#e8eee2;display:flex;align-items:center;gap:8px;}
+  .exrow-top .hint{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;border:1px solid var(--line);font-size:9px;color:var(--ink-faint);transition:.2s;}
+  .exlist li.open .hint{transform:rotate(180deg);border-color:var(--acc);color:var(--acc);}
+  .exrow-top .rep{flex:0 0 auto;font-size:12.5px;font-weight:700;color:var(--acc);white-space:nowrap;background:rgba(196,255,69,.08);padding:3px 9px;border-radius:8px;}
+  .ex-info{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .exlist li.open .ex-info{max-height:240px;}
+  .ex-info-inner{padding:0 2px 14px;}
+  .ex-info .cue{font-size:13px;color:var(--ink-dim);margin-bottom:11px;line-height:1.55;}
+  .yt{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:800;color:#0c0e0b;background:var(--acc);padding:8px 14px;border-radius:10px;text-decoration:none;}
+  .yt:active{transform:scale(.97);}
+  .yt .pl{display:inline-flex;width:15px;height:15px;align-items:center;justify-content:center;background:#0c0e0b;color:var(--acc);border-radius:3px;font-size:8px;}
+  .ex-note{padding:12px 2px;font-size:12.5px;color:var(--ink-faint);font-style:italic;}
+
+  ul.diet{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  ul.diet li{display:flex;gap:10px;font-size:13.8px;color:#e3e9dd;}
+  ul.diet li::before{content:"·";color:var(--acc);font-weight:900;font-size:18px;line-height:1.2;}
+
+  .safety{background:rgba(255,122,122,.06);border:1px solid rgba(255,122,122,.25);border-radius:14px;padding:14px 15px;font-size:13.5px;color:#f3d9d9;}
+  .safety .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--danger);background:rgba(255,122,122,.13);padding:3px 9px;border-radius:999px;margin-bottom:8px;}
+
+  .rules{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+  .rule{font-size:11.5px;font-weight:700;color:var(--ink-dim);background:#0e110c;border:1px solid var(--line);border-radius:999px;padding:6px 12px;}
+  .rule b{color:var(--acc);}
+
+  footer{max-width:760px;margin:30px auto 0;padding:0 18px;color:var(--ink-faint);font-size:11.5px;line-height:1.7;text-align:center;}
+  footer .med{border-top:1px solid var(--line);padding-top:16px;}
+</style>
+</head>
+<body>
+<header>
+  <div class="head-inner">
+    <div class="eyebrow">2026 Body Challenge · 2~3개월</div>
+    <div class="title">멤버별 딥 플랜 <small>주 3회 인증 · 지속 가능한 식단</small></div>
+  </div>
+  <div class="tabs" id="tabs" role="tablist"></div>
+</header>
+
+<main id="main"></main>
+
+<footer>
+  <div class="rules">
+    <span class="rule">공통 규칙 · <b>주 3회 운동 인증</b></span>
+    <span class="rule"><b>밤 9시 이후 야식 금지</b></span>
+    <span class="rule">식단 80/20 원칙</span>
+  </div>
+  <p class="med" style="margin-top:18px;">이 플랜은 인바디 데이터와 각자의 상황을 바탕으로 한 일반 운동·식단 가이드이며, 의료 처방이 아닙니다. 디스크·류마티즘·당뇨·갑상선·아킬레스건 등 질환이 있는 분은 담당 의사·전문가 소견과 충돌하지 않는 선에서 활용하시고, 운동 중 통증·이상 증상이 나타나면 즉시 중단하세요.</p>
+</footer>
+
+<script>
+const MEMBERS = [
+  {
+    id:"gwan", tag:"1번", name:"관님", meta:"42세 남성 · 179.1cm",
+    oneline:"근육 베이스(35kg·좌우 완벽 대칭)는 6명 중 최상위. 활동량 감소로 남는 칼로리가 몸통에 집중된 마른비만 진입형. 어깨 처짐은 근육 불균형이 아니라 목 보호용 자세 보상.",
+    stats:[["75.1","kg","체중"],["35.0","kg","골격근"],["18.6","%","체지방률"],["78","점","인바디"]],
+    goals:[
+      "체지방 14.0kg → 10~11kg(체지방률 14~15%대), 골격근 35kg는 유지",
+      "어깨 좌우 높이차 완화 — 흉추 가동성 + 견갑 안정화",
+      "주 3회 인증 습관 안착"
+    ],
+    revise:"원본의 '경사 12~15% 인클라인 워킹 필수'는 활동량이 떨어진 상태엔 과해서, <b>경사 6~8%에서 시작해 4주간 10~12%까지 점진적</b>으로 올리도록 수정했어요. 등 운동도 목·승모근을 끌어쓰는 랫풀다운 대신 <b>가슴받이가 있는 체스트서포티드 로우</b>로 바꿔 목 개입을 차단했습니다.",
+    routine:{
+      A:{label:"밀기 + 코어",items:[["흉추 신전·월 슬라이드(워밍업)","2분"],["머신 체스트프레스","12회×3"],["시티드 숄더프레스(등받이 고정·가볍게)","12회×3"],["케이블 페이스풀","15회×3"],["데드버그","10회×3"],["인클라인 워킹(경사 6~8%)","15~20분"]]},
+      B:{label:"당기기 + 하체",items:[["밴드 풀어파트(워밍업)","15회×2"],["체스트서포티드 로우","12회×3"],["시티드 레그프레스","12회×3"],["시티드 레그컬","12회×3"],["프론 Y-T-W","각 10회×2"],["인클라인 워킹","15~20분"]]},
+      C:{label:"전신 + 자세교정",items:[["캣카우(워밍업)","10회"],["버드독","10회×3"],["글루트 브릿지","15회×3"],["머신 로우 / 어시스트 풀업","12회×3"],["스캐풀러 푸쉬업","12회×3"],["인클라인 워킹","15~20분"]]}
+    },
+    diet:[
+      "끼니마다 손바닥 1개 분량 단백질, 하루 90~120g 목표",
+      "정제탄수·술·액상과당 줄이기 — 밥은 끊지 말고 2/3공기로",
+      "저녁은 가볍게, 9시 이후 금지",
+      "주 1~2회 외식은 자유, 대신 술·디저트 중 하나만"
+    ],
+    safety:"목디스크 병력 — 오버헤드 고중량·바벨 프리웨이트·랫풀다운 비하인드넥 제외. 팔 저림·목 방사통이 오면 즉시 중단. 강도를 본격적으로 올리기 전 정형외과·도수치료 점검 권장."
+  },
+  {
+    id:"ho", tag:"2번", name:"호님", meta:"38세 남성 · 178cm",
+    oneline:"6명 중 최강 엔진 — 근육 키울 필요 전혀 없음. 내장지방 10 + 과체중이 디스크·류마티즘 통증의 직접 원인. 이 몸은 감량이 곧 치료.",
+    stats:[["83.2","kg","체중"],["37.8","kg","골격근"],["20.5","%","체지방률"],["10","Lv","내장지방"]],
+    goals:[
+      "체중 83.2 → 78~79kg, 내장지방 10 → 7 이하, 체지방률 20.5 → 16~17%",
+      "골격근 37.8kg 사수 — 단백질로 방어",
+      "디스크·관절 통증 빈도 감소, 골반전방경사 완화"
+    ],
+    revise:"원본은 코어·둔근 강화를 강조하지만, 류마티즘 활동기엔 강한 코어도 부담이라 <b>통증 단계별 2단 루틴</b>으로 수정했어요. 통증 없는 날은 정상 루틴, 관절 통증 있는 날은 실내자전거·수중운동 같은 <b>무충격 회복</b>으로 대체하되 인증은 유지. 내장지방은 80%가 식단에서 빠지므로 운동보다 식단 비중을 높였습니다.",
+    routine:{
+      A:{label:"코어 + 둔근",items:[["데드버그","10회×3"],["글루트 브릿지","15회×3"],["버드독","10회×3"],["클램쉘(우측 고관절 보조)","15회×3"],["실내자전거","20분"]]},
+      B:{label:"하체(무충격) + 고관절",items:[["레그프레스","12회×3"],["시티드 레그컬","12회×3"],["힙쓰러스트","12회×3"],["90-90 고관절·골반전방경사 스트레칭","5분"],["일립티컬","20분"]]},
+      C:{label:"상체 머신 + 코어",items:[["머신 체스트프레스","12회×3"],["체스트서포티드 로우","12회×3"],["플랭크","40초×3"],["수중걷기(가능 시)","15분"]]}
+    },
+    diet:[
+      "액상과당·간식 완전 차단 — 음료는 물·탄산수·블랙커피",
+      "정제탄수↓, 단백질 100~130g 사수(근육 방어)",
+      "항염 식단: 등푸른생선·채소·올리브오일↑, 가공육·튀김↓",
+      "술 최소화(내장지방·염증에 직격)"
+    ],
+    safety:"류마티즘 — 통증·부기 있는 날 무리 금지, 무충격으로 대체. 디스크 — 윗몸일으키기·무거운 데드리프트 등 척추 굽힘/회전 부하 금지. 류마티스내과·정형외과 관리 병행."
+  },
+  {
+    id:"gyeong", tag:"3번", name:"경님", meta:"36세 여성 · 158cm",
+    oneline:"감량 절대 금지. 하체 근육(혈당 창고)이 바닥나 당이 복부로 가는 마른비만. 발목 무충격 하체 증량 + 식후 혈당 관리가 생존 전략.",
+    stats:[["52.6","kg","체중"],["21.3","kg","골격근"],["26.1","%","체지방률"],["77","점","인바디"]],
+    goals:[
+      "체중 유지(근육 +1~2kg), 복부지방률 0.87 → 0.83 이하",
+      "하체 근육량 표준 90% → 95%+",
+      "체지방률 26.1 → 24%대 (지방↓ 근육↑ 동시에)"
+    ],
+    revise:"원본의 거꾸로 식사법 + 무충격 하체 방향은 그대로 가되, 갑상선 저하증을 고려해 <b>저칼로리·감량 금지</b>를 명확히 했어요. 대사가 느린 상태에서 적게 먹으면 갑상선·근육이 더 망가집니다. <b>식후 평지 짧은 걷기</b>(혈당 스파이크 억제)를 추가하되 아킬레스 보호를 위해 평지·10~15분으로 제한했습니다.",
+    routine:{
+      A:{label:"좌식 하체",items:[["시티드 레그프레스(발목 중립)","12회×3"],["레그 익스텐션","12회×3"],["시티드 레그컬","12회×3"],["힙쓰러스트","15회×3"]]},
+      B:{label:"하체+코어(무충격)",items:[["사이드라잉 힙 어브덕션","15회×3"],["클램쉘","15회×3"],["데드버그","10회×3"],["실내자전거(안장 높이 조절)","15~20분"]]},
+      C:{label:"전신 순환",items:[["레그프레스(부분 가동)","12회×3"],["머신 로우·체스트프레스(가볍게)","12회×3"],["식후 평지 걷기","10~15분"]]}
+    },
+    diet:[
+      "거꾸로 식사: 채소·국 → 단백질 → 탄수 순서",
+      "정제탄수·단순당↓, 통곡물·단백질↑",
+      "끼니 거르지 않기(혈당 롤러코스터 방지), 식후 10분 걷기",
+      "갑상선: 요오드 극단 섭취·제한 피하고 균형 있게"
+    ],
+    safety:"아킬레스건 — 점프·달리기·무리한 카프레이즈 금지, 통증 시 중단. 당뇨 전단계·갑상선 저하는 내분비내과 정기 관리 필수, 운동·식단은 보조. 감량 다이어트 금지."
+  },
+  {
+    id:"seon", tag:"4번", name:"선님", meta:"40세 여성 · 167cm",
+    oneline:"내과 수치는 6명 중 가장 깨끗(내장지방 5). 문제는 거북목·라운드숄더·골반전방경사 같은 자세. 빡빡한 식단보다 정렬 + 운동 빈도 회복이 정답.",
+    stats:[["58.2","kg","체중"],["23.4","kg","골격근"],["27.3","%","체지방률"],["5","Lv","내장지방"]],
+    goals:[
+      "체지방률 27.3 → 24~25%, 복부지방률 0.85 → 0.82 이하",
+      "라운드숄더·거북목 가시적 개선, 8자걸음 완화",
+      "주 3회 빈도 안착"
+    ],
+    revise:"원본의 등·견갑 / 하부코어 / 고관절 방향이 좋아 유지하고, 상체 좌우 약불균형이 있으니 <b>한쪽씩 하는 편측 운동</b>을 추가해 약한 쪽을 보강하도록 했어요. 식단은 칼로리 제한보다 단백질·야식 관리 수준의 <b>'가벼운 정리'</b>로 명확히 했습니다(내장지방이 깨끗하니까요).",
+    routine:{
+      A:{label:"등·견갑(라운드숄더)",items:[["시티드 로우","12회×3"],["페이스풀","15회×3"],["프론 Y-T-W","각 10회×2"],["친 턱 당기기(거북목)","10회×3"],["월 슬라이드","10회×3"]]},
+      B:{label:"하부코어 + 골반",items:[["데드버그","10회×3"],["글루트 브릿지","15회×3"],["플랭크","30초×3"],["고관절 굴곡근 스트레칭(전방경사)","5분"],["고관절 내회전(8자걸음)","좌우"]]},
+      C:{label:"전신 + 편측 보강",items:[["한팔 케이블 로우(약한 쪽 +1세트)","12회×3"],["버드독","10회×3"],["클램쉘","15회×3"],["빠른 걷기·일립티컬","20분"]]}
+    },
+    diet:[
+      "야식 금지 + 단백질 80~100g 챙기기",
+      "정제탄수 약간↓, 채소↑",
+      "과한 제한 불필요 — 80/20으로 자유롭게"
+    ],
+    safety:"거북목 운동 시 목 과신전 금지(친 턱은 부드럽게). 통증 시 중단."
+  },
+  {
+    id:"jeong", tag:"5번", name:"정님", meta:"여성 · 필라테스 강사",
+    oneline:"저체중·근육 부족. 일반 다이어트는 독. 단백질만 먹으면 더부룩한 흡수 부전이 근본 문제 — 흡수율 개선 + 순수 근육 증량이 목표.",
+    stats:[["46.4","kg","체중"],["18.5","kg","골격근"],["25.4","%","체지방률"],["72","점","인바디"]],
+    goals:[
+      "체중 46.4 → 48~49kg(근육 위주), 골격근 18.5 → 20kg 방향",
+      "수분·영양 보유력(ECW) 개선",
+      "소화 불편 없이 단백질 섭취량 안정화"
+    ],
+    revise:"원본은 '테니스 강도를 버티게'였는데, 지금은 테니스로 얼마 없는 근육을 연료로 쓰는 <b>근손실 악순환</b> 중이에요. 챌린지 기간엔 테니스 빈도·강도를 살짝 줄이거나 그날 영양·휴식을 더 채우는 쪽으로 조정을 권합니다(완전히 끊진 마세요). 운동은 고강도 웨이트가 아니라 <b>저강도 점진 저항운동</b>으로, 흡수 개선을 운동보다 우선했습니다.",
+    routine:{
+      A:{label:"하체·둔근(저강도)",items:[["레그프레스(가볍게)","15회×3"],["글루트 브릿지","15회×3"],["부분 스쿼트","12회×3"]]},
+      B:{label:"상체(저강도)",items:[["머신 체스트프레스","15회×3"],["시티드 로우","15회×3"],["밴드 운동","2~3종"]]},
+      C:{label:"안정화(전공 활용)",items:[["코어·정렬 위주 + 가벼운 저항","세션형"],["※ 폼은 전문가 — 핵심은 '근육 키울 영양·회복'","-"]]}
+    },
+    diet:[
+      "소화 잘 되는 단백질 소량 분할: 황태·계란찜·흰살생선·두부·그릭요거트",
+      "한 번에 많이 X, 자주 조금씩(3끼 + 2간식)",
+      "식초·발효식품·소화효소로 흡수 보조",
+      "따뜻하게 익혀서, 탄수도 충분히(죽·진밥 등 소화 쉬운 형태)"
+    ],
+    safety:"저체중 + 소화 부전 + 살이 안 찌는 건 한 번쯤 진료를 권합니다(소화기·갑상선·흡수장애 등 기저 원인 확인). 무리한 운동 강도 금지. — 6명 중 의료 점검이 가장 권장되는 케이스."
+  },
+  {
+    id:"uk", tag:"6번", name:"욱님", meta:"남성 · 교사(휴직)",
+    oneline:"체성분 거의 완벽, 감량 목표 아님. 측만증 + 허리디스크 위에서 테니스 편측회전·러닝 충격이 잠재 폭탄 — 안티로테이션 코어로 방패 만들기.",
+    stats:[["68.3","kg","체중"],["31.3","kg","골격근"],["18.6","%","체지방률"],["1511","kcal","기초대사"]],
+    goals:[
+      "체성분 유지(근육 유지, 체지방 18%대)",
+      "코어 안정성·안티로테이션 능력 향상, 상체 보강",
+      "3개월간 디스크·측만 통증 0 유지"
+    ],
+    revise:"원본의 플랭크·버드독·안티로테이션 방향이 정확해서 유지하고, 측만은 한 방향이 약하니 <b>약한 쪽 편측 보강</b>을 추가했어요. 러닝은 무통증이라도 챌린지 중엔 일부를 <b>쿠션 좋은 트레드밀·인클라인 워킹</b>으로 대체해 척추 충격 총량을 관리하도록 권합니다(완전 금지는 아님).",
+    routine:{
+      A:{label:"안티로테이션 코어",items:[["팔로프 프레스(좌우)","12회×3"],["플랭크","45초×3"],["사이드 플랭크(약한 쪽 +1)","30초×3"],["버드독","10회×3"]]},
+      B:{label:"상체 밀기·당기기",items:[["푸쉬업 / 체스트프레스","12회×3"],["로우","12회×3"],["페이스풀","15회×3"]]},
+      C:{label:"전신 안정 + 밸런스",items:[["데드버그","10회×3"],["한 다리 균형 운동","좌우"],["운동 후 좌우 대칭 스트레칭","5분"]]}
+    },
+    diet:[
+      "현상 유지 + 단백질 충분히(110~130g) — 활동량 많으니 잘 먹기",
+      "특별한 제한 불필요"
+    ],
+    safety:"윗몸일으키기·무거운 굿모닝·바벨 회전 부하 등 척추 굽힘/회전 동작 금지. 테니스 후 한쪽이 굳으면 반대 방향 스트레칭. 측만·디스크 정기 점검 유지."
+  }
+];
+
+// 초보자용 운동 설명 (운동 이름 → 한 줄 방법)
+const EXERCISE_INFO={
+  "흉추 신전·월 슬라이드":"벽에 등·엉덩이를 붙이고 양팔을 만세 자세로 천천히 올렸다 내려요. 굽은 등과 말린 어깨를 펴주는 준비운동.",
+  "머신 체스트프레스":"가슴 높이 손잡이를 앞으로 밀었다가 천천히 돌아와요. 어깨가 으쓱 올라가지 않게 가슴에 집중.",
+  "시티드 숄더프레스":"앉아서 등을 등받이에 붙이고 무게를 머리 위로 밀어 올려요. 가벼운 무게부터.",
+  "케이블 페이스풀":"줄을 얼굴 쪽으로 당기며 양 어깨뼈를 뒤로 모아줘요. 라운드숄더 교정에 좋아요.",
+  "페이스풀":"줄(또는 밴드)을 얼굴 쪽으로 당기며 어깨를 뒤로 모으는 등·후면 어깨 운동.",
+  "데드버그":"바닥에 누워 허리를 바닥에 딱 붙인 채, 반대쪽 팔과 다리를 천천히 뻗어요. 허리 안 뜨게.",
+  "인클라인 워킹":"러닝머신 경사를 올린 채 빠르게 걷기. 뛰지 않아 무릎·허리 충격이 적어요.",
+  "밴드 풀어파트":"탄력밴드를 양손으로 잡고 가슴 앞에서 좌우로 벌려요. 어깨·등 준비운동.",
+  "체스트서포티드 로우":"가슴을 패드에 댄 채 무게를 당기는 등 운동. 허리·목 부담이 적어요.",
+  "시티드 레그프레스":"앉아서 발판을 다리로 밀어내는 하체 운동. 허리를 시트에 붙이고 무릎은 살짝 남겨요.",
+  "레그프레스":"발판을 다리로 밀어내는 하체 운동. 통증 없는 범위에서.",
+  "시티드 레그컬":"앉아서 발목으로 패드를 뒤로 당겨 허벅지 뒤를 써요.",
+  "레그 익스텐션":"앉아서 발등으로 패드를 차올려 허벅지 앞을 쓰는 운동.",
+  "프론 Y-T-W":"엎드려 팔로 Y·T·W 모양을 만들며 등·어깨 뒤 근육을 깨우는 자세교정 운동.",
+  "캣카우":"네발 자세에서 등을 둥글게 말았다 폈다 반복하는 척추 준비운동.",
+  "버드독":"네발 자세에서 반대쪽 팔과 다리를 동시에 뻗어 버티는 코어·균형 운동.",
+  "글루트 브릿지":"누워서 무릎을 세우고 엉덩이를 천천히 들어올렸다 내려요. 엉덩이에 힘 집중.",
+  "머신 로우 / 어시스트 풀업":"머신 로우는 손잡이를 몸쪽으로 당기기, 어시스트 풀업은 기계가 체중을 받쳐주는 턱걸이(초보용).",
+  "머신 로우·체스트프레스":"머신 로우(당기기)와 체스트프레스(밀기)를 가볍게. 등·가슴 기본 운동.",
+  "머신 로우":"앉아서 손잡이를 몸쪽으로 당기는 등 운동.",
+  "스캐풀러 푸쉬업":"팔은 편 채 어깨뼈만 모았다 벌렸다 해요. 날개뼈(전거근)를 깨우는 운동.",
+  "클램쉘":"옆으로 누워 무릎을 붙인 채 위쪽 무릎만 조개처럼 벌려요. 엉덩이 옆 근육 강화.",
+  "힙쓰러스트":"벤치에 등을 기대고 엉덩이를 위로 들어올리는 둔근 운동.",
+  "90-90 고관절·골반전방경사 스트레칭":"앉아서 양 무릎을 90도로 두고 좌우로 넘기며 고관절을 풀고, 골반 앞쪽 긴장을 늘려줘요.",
+  "고관절 굴곡근 스트레칭":"한쪽 무릎을 꿇고 골반을 앞으로 밀어 허벅지 앞·고관절을 늘려요. 골반전방경사 완화.",
+  "고관절 내회전":"고관절을 안쪽으로 돌려주는 운동. 8자 걸음·바깥으로 벌어지는 보행 교정.",
+  "일립티컬":"발을 페달에 올려 타원형으로 젓는 무충격 유산소 기구.",
+  "플랭크":"엎드려 팔꿈치와 발끝으로 몸을 일자로 버티는 코어 운동. 허리 안 꺾이게.",
+  "사이드 플랭크":"옆으로 누워 한쪽 팔꿈치로 몸을 일자로 들어 버티는 옆구리 코어.",
+  "수중걷기":"물속에서 걷기. 관절 충격이 거의 없어 디스크·류마티즘에 좋아요.",
+  "실내자전거":"앉아서 타는 고정식 자전거. 발목·무릎 충격이 적은 유산소.",
+  "사이드라잉 힙 어브덕션":"옆으로 누워 위쪽 다리를 천천히 들어올렸다 내려요. 엉덩이 옆 강화.",
+  "시티드 로우":"앉아서 손잡이를 배 쪽으로 당기는 등 운동.",
+  "친 턱 당기기":"턱을 살짝 뒤로 당겨(이중턱 만들 듯) 거북목을 펴는 목 교정 동작. 천천히.",
+  "월 슬라이드":"벽에 등을 대고 팔을 W에서 만세로 미끄러뜨려 올렸다 내려요. 어깨·등 펴기.",
+  "한팔 케이블 로우":"한 손으로 줄을 몸쪽으로 당기는 등 운동. 약한 쪽을 더 보강할 때.",
+  "빠른 걷기·일립티컬":"빠르게 걷기 또는 일립티컬로 가볍게 땀 내는 유산소.",
+  "부분 스쿼트":"무릎을 살짝만 굽혔다 펴는 가벼운 스쿼트. 통증 없는 범위에서.",
+  "밴드 운동":"탄력밴드로 하는 저강도 저항운동. 관절 부담이 적어 초보에게 좋아요.",
+  "코어·정렬 위주 + 가벼운 저항":"몸통 안정과 자세 정렬 위주의 세션 + 가벼운 저항운동.",
+  "팔로프 프레스":"옆에서 당겨지는 줄을 정면으로 밀어내며 몸통이 돌아가지 않게 버텨요. 회전 저항 코어.",
+  "푸쉬업 / 체스트프레스":"푸쉬업(팔굽혀펴기, 힘들면 무릎 대고) 또는 머신 체스트프레스로 가슴 운동.",
+  "푸쉬업":"엎드려 팔굽혀펴기. 힘들면 무릎을 바닥에 대고.",
+  "로우":"무게를 몸쪽으로 당기는 등 운동(머신·케이블·덤벨 모두 가능).",
+  "한 다리 균형 운동":"한 발로 서서 균형 잡기. 코어와 발목을 안정시켜요.",
+  "운동 후 좌우 대칭 스트레칭":"운동 후 양쪽을 똑같이 늘려 좌우 균형을 맞추는 마무리 스트레칭.",
+  "식후 평지 걷기":"식사 후 평지에서 가볍게 걷기. 식후 혈당이 급격히 오르는 걸 막아줘요."
+};
+
+const tabsEl=document.getElementById('tabs');
+const mainEl=document.getElementById('main');
+let dayState='A';
+
+MEMBERS.forEach((m,i)=>{
+  const b=document.createElement('button');
+  b.className='tab';b.setAttribute('role','tab');
+  b.setAttribute('aria-selected', i===0?'true':'false');
+  b.dataset.idx=i;
+  b.innerHTML=`<span>${m.name}</span><span class="num">${m.tag}</span>`;
+  b.onclick=()=>select(i);
+  tabsEl.appendChild(b);
+});
+
+function select(i){
+  [...tabsEl.children].forEach((t,k)=>t.setAttribute('aria-selected',k===i?'true':'false'));
+  dayState='A';
+  render(MEMBERS[i]);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function render(m){
+  const stats=m.stats.map(s=>`<div class="stat"><div class="v">${s[0]}<small>${s[1]}</small></div><div class="l">${s[2]}</div></div>`).join('');
+  const goals=m.goals.map(g=>`<li>${g}</li>`).join('');
+  const diet=m.diet.map(d=>`<li>${d}</li>`).join('');
+  mainEl.innerHTML=`
+  <div class="view">
+    <div class="hero">
+      <div class="name">${m.name}</div>
+      <div class="meta">${m.tag} · ${m.meta}</div>
+      <div class="oneline">${m.oneline}</div>
+      <div class="stats">${stats}</div>
+    </div>
+
+    <section>
+      <div class="s-head"><span class="dot"></span><h2>2~3개월 목표</h2></div>
+      <div class="card"><ul class="goals">${goals}</ul></div>
+    </section>
+
+    <section>
+      <div class="s-head"><span class="dot" style="background:var(--acc-2);box-shadow:0 0 10px var(--acc-2)"></span><h2>처방에서 손본 부분</h2></div>
+      <div class="revise"><span class="tag">REVISED</span><br>${m.revise}</div>
+    </section>
+
+    <section>
+      <div class="s-head"><span class="dot"></span><h2>주 3회 루틴</h2></div>
+      <div class="card">
+        <p class="ex-hint">운동 이름을 누르면 방법 설명과 영상이 나와요</p>
+        <div class="day-tabs" id="dayTabs"></div>
+        <ul class="exlist" id="exlist"></ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="s-head"><span class="dot"></span><h2>식단 (지속 가능 버전)</h2></div>
+      <div class="card"><ul class="diet">${diet}</ul></div>
+    </section>
+
+    <section>
+      <div class="s-head"><span class="dot" style="background:var(--danger);box-shadow:0 0 10px var(--danger)"></span><h2>안전핀</h2></div>
+      <div class="safety"><span class="tag">SAFETY</span><br>${m.safety}</div>
+    </section>
+  </div>`;
+  renderDays(m);
+}
+
+function renderDays(m){
+  const dt=document.getElementById('dayTabs');
+  const keys=Object.keys(m.routine);
+  dt.innerHTML=keys.map(k=>`<button class="day-tab ${k===dayState?'on':''}" data-k="${k}">${k}일<span class="dl">${m.routine[k].label}</span></button>`).join('');
+  [...dt.children].forEach(btn=>btn.onclick=()=>{dayState=btn.dataset.k;renderDays(m);});
+  const list=document.getElementById('exlist');
+  list.innerHTML=m.routine[dayState].items.map(it=>{
+    const name=it[0], rep=it[1];
+    if(name.startsWith('※')) return `<li><div class="ex-note">${name}</div></li>`;
+    const base=name.replace(/\(.*?\)/g,'').trim();
+    const cue=EXERCISE_INFO[base]||EXERCISE_INFO[name]||'';
+    const q=encodeURIComponent(base.replace(/·/g,' ').replace(/\s+/g,' ').trim()+' 운동 방법');
+    const yt='https://www.youtube.com/results?search_query='+q;
+    return `<li>
+      <div class="exrow-top"><span class="ex">${name}<span class="hint">▾</span></span><span class="rep">${rep}</span></div>
+      <div class="ex-info"><div class="ex-info-inner">${cue?`<p class="cue">${cue}</p>`:''}<a class="yt" href="${yt}" target="_blank" rel="noopener"><span class="pl">▶</span>유튜브에서 영상 보기</a></div></div>
+    </li>`;
+  }).join('');
+  [...list.querySelectorAll('.exrow-top')].forEach(t=>t.onclick=()=>t.parentElement.classList.toggle('open'));
+}
+
+render(MEMBERS[0]);
+</script>
+</body>
+</html>
